@@ -1,83 +1,658 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="facebook-domain-verification" content="ngxel1mj0r8yxq2vhh3w2vg4ajfwcc" />
-    <title>Welcome</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            padding: 20px;
-        }
-        
-        .container {
-            text-align: center;
-            max-width: 600px;
-        }
-        
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-        
-        .link {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 12px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .link:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            p {
-                font-size: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="facebook-domain-verification" content="ngxel1mj0r8yxq2vhh3w2vg4ajfwcc" />
+  <title>Timothy Lothering — Microsoft 365 & Azure Consultant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:         #080b12;
+      --bg-2:       #0d1120;
+      --bg-card:    #111827;
+      --border:     rgba(255,255,255,.07);
+      --border-hi:  rgba(255,255,255,.14);
+      --text:       #e8eaf0;
+      --text-muted: #6b7385;
+      --text-dim:   #9ba3b8;
+      --accent:     #3b82f6;
+      --accent-2:   #60a5fa;
+      --accent-glow:rgba(59,130,246,.25);
+      --cyan:       #22d3ee;
+      --gold:       #f59e0b;
+      --gold-dim:   rgba(245,158,11,.15);
+      --green:      #4ade80;
+      --serif:      'Syne', system-ui, sans-serif;
+      --sans:       'Inter', system-ui, sans-serif;
+      --r:          8px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* subtle dot-grid background */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(8,11,18,.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.1rem; font-weight: 800;
+      color: var(--text);
+      text-decoration: none; letter-spacing: -.01em;
+    }
+    .nav-brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: .8rem; font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none; letter-spacing: .06em;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #fff !important;
+      padding: 8px 18px; border-radius: var(--r);
+      letter-spacing: .04em !important;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transition: box-shadow .2s, background .2s !important;
+    }
+    .nav-cta:hover { background: var(--accent-2) !important; box-shadow: 0 0 30px var(--accent-glow) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    /* radial glow left */
+    .hero::before {
+      content: '';
+      position: absolute; top: -20%; left: -10%;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-left {
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px 60px 80px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .7rem; font-weight: 500; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 28px;
+    }
+    .hero-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--cyan); }
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+      line-height: 1.08; letter-spacing: -.03em;
+      color: var(--text); margin-bottom: 24px; font-weight: 800;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-dim);
+      max-width: 440px; margin-bottom: 48px;
+      font-weight: 300; line-height: 1.8;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: var(--r);
+      font-size: .9rem; font-weight: 500;
+      text-decoration: none; cursor: pointer;
+      transition: all .25s; border: none; font-family: var(--sans);
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 0 28px var(--accent-glow);
+    }
+    .btn-primary:hover { background: var(--accent-2); transform: translateY(-2px); box-shadow: 0 0 40px var(--accent-glow); }
+    .btn-outline {
+      background: transparent; color: var(--text-dim);
+      border: 1px solid var(--border-hi);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* hero right panel */
+    .hero-right {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      padding: 140px 60px 80px;
+    }
+    /* right-side glow */
+    .hero-right::before {
+      content: '';
+      position: absolute; top: 50%; right: -5%; transform: translateY(-50%);
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(34,211,238,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-card {
+      position: relative; z-index: 2;
+      background: var(--bg-card);
+      border: 1px solid var(--border-hi);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 340px; width: 100%;
+      animation: floatCard 5s ease-in-out infinite;
+      box-shadow: 0 24px 64px rgba(0,0,0,.5), 0 0 0 1px var(--border);
+    }
+    @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .hero-card-label {
+      font-size: .65rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 18px; font-weight: 500;
+    }
+    .hero-card h2 {
+      font-family: var(--serif); font-size: 1.45rem; color: var(--text);
+      margin-bottom: 20px; line-height: 1.25; font-weight: 700;
+    }
+    .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .badge {
+      font-size: .65rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+      background: rgba(59,130,246,.12); color: var(--accent-2);
+      border: 1px solid rgba(59,130,246,.2);
+      padding: 4px 10px; border-radius: 4px;
+    }
+    .stat-row { display: flex; gap: 0; margin-top: 28px; border-top: 1px solid var(--border); padding-top: 24px; }
+    .stat { flex: 1; text-align: center; padding: 0 8px; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: var(--serif); font-size: 1.5rem; font-weight: 800; color: var(--text); display: block; }
+    .stat-desc { font-size: .65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .09em; margin-top: 2px; }
+
+    /* ─── SHARED SECTION ─── */
+    section { position: relative; z-index: 1; padding: 100px 60px; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: .68rem; font-weight: 500; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 16px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--cyan); }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1.12; letter-spacing: -.02em; margin-bottom: 14px; font-weight: 800;
+    }
+    .section-sub { font-size: .95rem; color: var(--text-dim); max-width: 520px; font-weight: 300; line-height: 1.8; }
+    hr.rule { border: none; border-top: 1px solid var(--border); margin: 0; position: relative; z-index: 1; }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--bg-2); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      margin-top: 60px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .service-card {
+      padding: 36px 32px;
+      background: var(--bg-2);
+      position: relative; transition: background .2s;
+      cursor: default;
+    }
+    .service-card:hover { background: #131929; }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(59,130,246,.1);
+      border: 1px solid rgba(59,130,246,.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 1.3rem;
+    }
+    .service-card h3 {
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 10px; letter-spacing: -.01em; color: var(--text);
+    }
+    .service-card p { font-size: .875rem; color: var(--text-dim); line-height: 1.75; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .tag {
+      font-size: .63rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+      background: rgba(255,255,255,.04); color: var(--text-muted);
+      border: 1px solid var(--border-hi);
+      padding: 3px 9px; border-radius: 4px;
+      transition: color .2s, border-color .2s;
+    }
+    .service-card:hover .tag { color: var(--accent-2); border-color: rgba(59,130,246,.3); }
+
+    /* ─── APPROACH ─── */
+    #approach { background: var(--bg); }
+    .approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 60px; }
+    .step {
+      display: flex; gap: 24px; padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: var(--serif); font-size: 2rem; font-weight: 800;
+      color: rgba(59,130,246,.15); min-width: 44px; line-height: 1;
+      user-select: none;
+    }
+    .step-body h4 { font-size: 1rem; font-weight: 500; margin-bottom: 6px; color: var(--text); }
+    .step-body p { font-size: .875rem; color: var(--text-dim); line-height: 1.75; }
+
+    .approach-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hi);
+      border-radius: 16px;
+      min-height: 420px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .approach-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 40%, rgba(59,130,246,.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 70%, rgba(34,211,238,.08) 0%, transparent 50%);
+    }
+    /* animated ring */
+    .ring {
+      position: relative; z-index: 2;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      border: 1px solid rgba(59,130,246,.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ring::before {
+      content: '';
+      position: absolute; inset: -20px; border-radius: 50%;
+      border: 1px solid rgba(59,130,246,.1);
+      animation: spinRing 8s linear infinite;
+    }
+    .ring::after {
+      content: '';
+      position: absolute; inset: -40px; border-radius: 50%;
+      border: 1px dashed rgba(34,211,238,.08);
+      animation: spinRing 14s linear infinite reverse;
+    }
+    @keyframes spinRing { to { transform: rotate(360deg); } }
+    .ring-inner {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; gap: 4px;
+    }
+    .ring-inner span { font-family: var(--serif); font-size: 2.8rem; font-weight: 800; color: var(--text); }
+    .ring-inner small { font-size: .65rem; color: var(--cyan); letter-spacing: .12em; text-transform: uppercase; }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--bg-2); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 60px; }
+    .contact-info { display: flex; flex-direction: column; gap: 24px; }
+    .contact-item { display: flex; gap: 18px; align-items: flex-start; }
+    .contact-icon {
+      width: 42px; height: 42px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(59,130,246,.08); border: 1px solid rgba(59,130,246,.18);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    }
+    .contact-item-label { font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; }
+    .contact-item-val { color: var(--text); font-size: .95rem; font-weight: 400; text-decoration: none; transition: color .2s; }
+    .contact-item-val:hover { color: var(--accent-2); }
+
+    .booking-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-hi);
+      border-radius: 16px; padding: 44px;
+      position: relative; overflow: hidden;
+    }
+    .booking-box::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,.12) 0%, transparent 70%);
+    }
+    .booking-box h3 {
+      font-family: var(--serif); font-size: 1.55rem; color: var(--text);
+      margin-bottom: 10px; font-weight: 700; position: relative;
+    }
+    .booking-box p { font-size: .875rem; color: var(--text-dim); line-height: 1.75; margin-bottom: 28px; position: relative; }
+    .btn-accent {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 0 28px var(--accent-glow);
+      position: relative;
+    }
+    .btn-accent:hover { background: var(--accent-2); transform: translateY(-2px); box-shadow: 0 0 44px var(--accent-glow); }
+    .availability {
+      display: flex; align-items: center; gap: 8px;
+      margin-top: 18px; font-size: .78rem; color: var(--text-muted);
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.4)} 50%{opacity:.6;box-shadow:0 0 0 4px rgba(74,222,128,0)} }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 28px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-brand { font-size: .85rem; color: var(--text-muted); }
+    .footer-brand strong { color: var(--text-dim); }
+    .footer-note { font-size: .75rem; color: rgba(255,255,255,.18); }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      section { padding: 72px 20px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 110px 20px 56px; }
+      .hero-right { display: none; }
+      .approach-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Timothy Lothering</h1>
-        <p>Professional IT Consultancy Services</p>
-        <p>Contact me timothy@lothering.co.za</p>
-        <p>WebSite under Construction</p>
-        <a href="https://www.lothering.co.za" class="link">Visit Main Site</a>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-brand">Timothy<span>.</span>Lothering</a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://outlook.office.com/bookwithme/user/845dfc7b1c7647f1b0223d9e81ea01bc@lothering.co.za?anonymous&ismsaljsauthenabled&ep=plink" target="_blank" class="nav-cta">Book a Call</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Independent IT Consultant &amp; Cloud Architect</div>
+      <h1>Microsoft 365 &amp;&nbsp;<em>Azure</em> Expertise, On Demand</h1>
+      <p class="hero-sub">Timothy Lothering provides strategic cloud consulting and hands-on implementation for organisations across South Africa. Cut complexity, accelerate adoption, and get results.</p>
+      <div class="hero-actions">
+        <a href="https://outlook.office.com/bookwithme/user/845dfc7b1c7647f1b0223d9e81ea01bc@lothering.co.za?anonymous&ismsaljsauthenabled&ep=plink" target="_blank" class="btn btn-primary">Book a Free Consultation →</a>
+        <a href="#services" class="btn btn-outline">View Services</a>
+      </div>
     </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-card-label">Specialisation</div>
+        <h2>Cloud Solutions Architecture</h2>
+        <div class="badge-row">
+          <span class="badge">Microsoft 365</span>
+          <span class="badge">Azure</span>
+          <span class="badge">Security</span>
+          <span class="badge">Teams</span>
+          <span class="badge">Entra ID</span>
+          <span class="badge">Intune</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">M365</span>
+            <span class="stat-desc">Certified</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">AZ</span>
+            <span class="stat-desc">Architect</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">ZA</span>
+            <span class="stat-desc">Based</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="fade-up">
+      <div class="section-label">What I Offer</div>
+      <h2 class="section-title">Core Consulting Services</h2>
+      <p class="section-sub">Comprehensive advisory and implementation across the Microsoft cloud stack — from licensing strategy through to end-user adoption.</p>
+    </div>
+    <div class="services-grid fade-up">
+
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <h3>Microsoft Azure</h3>
+        <p>Architecture design, migration planning, cost optimisation, and governance frameworks for Azure workloads.</p>
+        <div class="service-tags">
+          <span class="tag">IaaS / PaaS</span><span class="tag">Landing Zones</span><span class="tag">Cost Management</span><span class="tag">Governance</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🔐</div>
+        <h3>Identity &amp; Access</h3>
+        <p>Entra ID (Azure AD) design, Conditional Access, MFA rollout, hybrid identity, and Zero Trust frameworks.</p>
+        <div class="service-tags">
+          <span class="tag">Entra ID</span><span class="tag">SSO</span><span class="tag">Zero Trust</span><span class="tag">MFA</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>Microsoft 365 Security</h3>
+        <p>Defender for Microsoft 365, DLP policies, information protection, Purview compliance, and threat response.</p>
+        <div class="service-tags">
+          <span class="tag">Defender</span><span class="tag">Purview</span><span class="tag">DLP</span><span class="tag">CASB</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <h3>Microsoft Teams</h3>
+        <p>Teams deployment, governance, Direct Routing / Operator Connect telephony, and Teams Rooms configuration.</p>
+        <div class="service-tags">
+          <span class="tag">Direct Routing</span><span class="tag">Rooms</span><span class="tag">Governance</span><span class="tag">ACS</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3>Endpoint Management</h3>
+        <p>Microsoft Intune, Autopilot, device compliance policies, and modern device lifecycle management.</p>
+        <div class="service-tags">
+          <span class="tag">Intune</span><span class="tag">Autopilot</span><span class="tag">MDM / MAM</span><span class="tag">Compliance</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📧</div>
+        <h3>Exchange &amp; Email</h3>
+        <p>Exchange Online architecture, migrations from on-premises, hybrid configurations, and email security hardening.</p>
+        <div class="service-tags">
+          <span class="tag">Exchange Online</span><span class="tag">Hybrid</span><span class="tag">Migration</span><span class="tag">DMARC</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📂</div>
+        <h3>SharePoint &amp; OneDrive</h3>
+        <p>SharePoint Online architecture, migration, governance, and OneDrive Known Folder Move deployment at scale.</p>
+        <div class="service-tags">
+          <span class="tag">SharePoint</span><span class="tag">OneDrive</span><span class="tag">KFM</span><span class="tag">Governance</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>Power Platform</h3>
+        <p>Power Apps, Power Automate, and Power BI solutions — governance, centre of excellence setup, and custom builds.</p>
+        <div class="service-tags">
+          <span class="tag">Power Apps</span><span class="tag">Automate</span><span class="tag">Power BI</span><span class="tag">CoE</span>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Licensing &amp; Strategy</h3>
+        <p>Microsoft 365 and Azure licensing optimisation, tenant strategy, roadmap planning, and CSP advisory.</p>
+        <div class="service-tags">
+          <span class="tag">Licensing</span><span class="tag">CSP</span><span class="tag">Roadmap</span><span class="tag">Cost Saving</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="approach-grid">
+      <div class="fade-up">
+        <div class="section-label">How I Work</div>
+        <h2 class="section-title">A Structured, Outcome-Driven Approach</h2>
+        <p class="section-sub">Every engagement is tailored — no cookie-cutter playbooks. I invest time understanding your environment before recommending any solution.</p>
+        <div class="approach-steps" style="margin-top:44px;">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <h4>Discover &amp; Assess</h4>
+              <p>Understand your current environment, pain points, licensing position, and business objectives through structured workshops.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <h4>Design &amp; Plan</h4>
+              <p>Produce a clear technical architecture and roadmap, with phased delivery options aligned to your budget and risk appetite.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <h4>Implement &amp; Configure</h4>
+              <p>Hands-on delivery with full documentation. I work alongside your team or independently — whatever suits your capacity.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-body">
+              <h4>Handover &amp; Enable</h4>
+              <p>Knowledge transfer, runbooks, and ongoing advisory options so your team can maintain and build on the solution.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="approach-visual">
+          <div class="ring">
+            <div class="ring-inner">
+              <span>CSA</span>
+              <small>Cloud Solution<br/>Architect</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="fade-up">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Start a Conversation</h2>
+      <p class="section-sub">Whether you have a specific project in mind or need a second opinion on your cloud strategy — reach out directly.</p>
+    </div>
+    <div class="contact-grid fade-up">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-body">
+            <div class="contact-item-label">Email</div>
+            <a href="mailto:timothy@lothering.co.za" class="contact-item-val">timothy@lothering.co.za</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-body">
+            <div class="contact-item-label">Phone / WhatsApp</div>
+            <a href="tel:+27689007889" class="contact-item-val">068 900 7889</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-body">
+            <div class="contact-item-label">Location</div>
+            <span class="contact-item-val">South Africa — Remote &amp; On-site</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🏢</div>
+          <div class="contact-item-body">
+            <div class="contact-item-label">Entity</div>
+            <span class="contact-item-val">Timothy Lothering — Sole Proprietor</span>
+          </div>
+        </div>
+      </div>
+      <div class="booking-box">
+        <h3>Book Time With Me</h3>
+        <p>Use the online booking system to schedule a consultation at a time that works for you. Initial discovery calls are complimentary.</p>
+        <a href="https://outlook.office.com/bookwithme/user/845dfc7b1c7647f1b0223d9e81ea01bc@lothering.co.za?anonymous&ismsaljsauthenabled&ep=plink" target="_blank" class="btn btn-accent">Schedule a Consultation →</a>
+        <div class="availability">
+          <div class="dot"></div>
+          Accepting new clients
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand"><strong>Timothy Lothering</strong> — Microsoft 365 &amp; Azure Consultant</div>
+    <div class="footer-note">© 2026 Timothy Lothering. Sole Proprietor. South Africa.</div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
 </body>
 </html>
